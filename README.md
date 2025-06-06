@@ -1,197 +1,196 @@
-# Strands Multi-Agent System
+# Strands マルチエージェント システム
 
-A production-ready multi-agent system built with AWS Strands Agents SDK that orchestrates specialized AI agents to handle complex business workflows collaboratively.
+AWS Strands Agents SDK を使用して構築された本格運用対応のマルチエージェントシステムで、専門特化したAIエージェントが連携して複雑なビジネスワークフローを処理します。
 
-## 🎯 Overview
+## 🎯 概要
 
-This system combines four specialized agents working together to solve complex business problems:
+このシステムは、複雑なビジネス課題を解決するために連携する4つの専門エージェントを組み合わせています：
 
-- **🔍 Data Analyst Agent**: Processes and analyzes data files (CSV, Excel), performs statistical analysis, and generates insights
-- **🌐 Research Agent**: Conducts web research, market analysis, fact-checking, and gathers external information
-- **📝 Report Generator Agent**: Creates professional reports, presentations, and documents in multiple formats
-- **🎯 Coordinator Agent**: Orchestrates multi-agent workflows and manages task distribution
+- **🔍 データアナリストエージェント**: データファイル（CSV、Excel）の処理・分析、統計分析、インサイト生成
+- **🌐 リサーチエージェント**: ウェブ調査、市場分析、ファクトチェック、外部情報収集
+- **📝 レポート生成エージェント**: 複数形式での専門的なレポート、プレゼンテーション、文書作成
+- **🎯 コーディネーターエージェント**: マルチエージェントワークフローの統制とタスク配分管理
 
-## 🚀 Quick Start
+## 🚀 クイックスタート
 
-### Prerequisites
+### 前提条件
 
 - Python 3.11+
-- AWS Account with Bedrock access
-- Docker (optional, for containerized deployment)
+- Bedrockアクセス権を持つAWSアカウント
+- Docker（コンテナ化デプロイメント用、オプション）
 
-### 1. Installation
+### 1. インストール
 
 ```bash
-# Clone the repository
+# リポジトリをクローン
 git clone <repository-url>
 cd strands-multi-agent-system
 
-# Create virtual environment
+# 仮想環境を作成
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
-# Install dependencies
+# 依存関係をインストール
 pip install -r requirements.txt
 ```
 
-### 2. Configuration
+### 2. 設定
 
 ```bash
-# Copy environment template
+# 環境テンプレートをコピー
 cp .env.example .env
 
-# Edit .env with your AWS credentials and configuration
-# At minimum, set:
+# AWSクレデンシャルと設定で.envを編集
+# 最低限以下を設定:
 # - AWS_ACCESS_KEY_ID
 # - AWS_SECRET_ACCESS_KEY
 # - AWS_DEFAULT_REGION
 ```
 
-### 3. Run the Application
+### 3. アプリケーションの実行
 
 ```bash
-# Start the Streamlit interface
+# Streamlitインターフェースを開始
 streamlit run app.py
 ```
 
-Open http://localhost:8501 in your browser.
+ブラウザで http://localhost:8501 を開いてください。
 
-## 🐳 Docker Deployment
+## 🐳 Dockerデプロイメント
 
-### Using Docker Compose (Recommended)
+### Docker Composeを使用（推奨）
 
 ```bash
-# Build and start all services
+# 全サービスをビルドして開始
 docker-compose up -d
 
-# View logs
+# ログを表示
 docker-compose logs -f strands-app
 
-# Stop services
+# サービスを停止
 docker-compose down
 ```
 
-### Using Docker Only
+### Dockerのみを使用
 
 ```bash
-# Build the image
+# イメージをビルド
 docker build -t strands-multi-agent .
 
-# Run the container
+# コンテナを実行
 docker run -p 8501:8501 --env-file .env strands-multi-agent
 ```
 
-## 📋 Usage Examples
+## 📋 使用例
 
-### 1. Data Analysis & Report Generation
+### 1. データ分析とレポート生成
 
-1. Upload CSV/Excel files through the web interface
-2. Select analysis types (statistical summary, trends, correlations)
-3. Choose report sections and output format
-4. The system automatically:
-   - Analyzes data with the Data Analyst Agent
-   - Conducts related market research
-   - Generates a comprehensive report
+1. ウェブインターフェースからCSV/Excelファイルをアップロード
+2. 分析タイプを選択（統計要約、トレンド、相関）
+3. レポートセクションと出力形式を選択
+4. システムが自動的に以下を実行：
+   - データアナリストエージェントでデータを分析
+   - 関連する市場調査を実施
+   - 包括的なレポートを生成
 
-### 2. Market Research
+### 2. 市場調査
 
-1. Enter your research topic (e.g., "Electric Vehicle Market")
-2. Select research aspects (market size, competitors, trends)
-3. Choose data sources and geographic focus
-4. Get a detailed market analysis report
+1. 調査トピックを入力（例：「電気自動車市場」）
+2. 調査観点を選択（市場規模、競合、トレンド）
+3. データソースと地理的焦点を選択
+4. 詳細な市場分析レポートを取得
 
-### 3. Competitive Intelligence
+### 3. 競合情報分析
 
-1. Enter your company/product and competitors
-2. Select analysis criteria (features, pricing, market share)
-3. Upload internal data for comparison (optional)
-4. Receive competitive positioning analysis
+1. 自社/製品と競合他社を入力
+2. 分析基準を選択（機能、価格、市場シェア）
+3. 比較用の内部データをアップロード（オプション）
+4. 競合ポジショニング分析を受け取る
 
-### 4. Custom Multi-Agent Tasks
+### 4. カスタムマルチエージェントタスク
 
-1. Describe your complex task in natural language
-2. Select which agents to use
-3. Upload relevant files
-4. Get coordinated results from multiple agents
+1. 複雑なタスクを自然言語で記述
+2. 使用するエージェントを選択
+3. 関連ファイルをアップロード
+4. 複数エージェントからの統合結果を取得
 
-## 🏗️ Architecture
+## 🏗️ アーキテクチャ
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │  Streamlit UI   │    │   Coordinator   │    │  Data Analyst   │
 │                 │◄──►│     Agent       │◄──►│     Agent       │
-│  - File Upload  │    │                 │    │                 │
-│  - Task Config  │    │ - Workflow Mgmt │    │ - Data Analysis │
-│  - Results View │    │ - Agent2Agent   │    │ - Statistics    │
-└─────────────────┘    │ - Coordination  │    │ - Insights      │
+│  - ファイルアップロード │    │                 │    │                 │
+│  - タスク設定     │    │ - ワークフロー管理  │    │ - データ分析     │
+│  - 結果表示      │    │ - エージェント間連携 │    │ - 統計          │
+└─────────────────┘    │ - 統制          │    │ - インサイト     │
                        └─────────────────┘    └─────────────────┘
                                 │
                        ┌─────────────────┐    ┌─────────────────┐
                        │   Research      │    │ Report Generator│
                        │     Agent       │    │     Agent       │
                        │                 │    │                 │
-                       │ - Web Search    │    │ - PDF Reports   │
-                       │ - Market Data   │    │ - Word Docs     │
-                       │ - Fact Check    │    │ - HTML Output   │
+                       │ - ウェブ検索     │    │ - PDFレポート    │
+                       │ - 市場データ     │    │ - Word文書      │
+                       │ - ファクトチェック │    │ - HTML出力      │
                        └─────────────────┘    └─────────────────┘
 ```
 
-## 🛠️ Core Components
+## 🛠️ コアコンポーネント
 
-### Agents
+### エージェント
 
-- **CoordinatorAgent** (`src/agents/coordinator.py`): Orchestrates workflows
-- **DataAnalystAgent** (`src/agents/data_analyst.py`): Data processing and analysis
-- **ResearchAgent** (`src/agents/research_agent.py`): External information gathering
-- **ReportGeneratorAgent** (`src/agents/report_generator.py`): Document creation
+- **CoordinatorAgent** (`src/agents/coordinator.py`): ワークフローの統制
+- **DataAnalystAgent** (`src/agents/data_analyst.py`): データ処理と分析
+- **ResearchAgent** (`src/agents/research_agent.py`): 外部情報収集
+- **ReportGeneratorAgent** (`src/agents/report_generator.py`): 文書作成
 
-### Tools
+### ツール
 
-- **Data Tools** (`src/tools/data_tools.py`): CSV/Excel processing, statistical analysis
-- **Search Tools** (`src/tools/search_tools.py`): Web search, content extraction
-- **Document Tools** (`src/tools/document_tools.py`): Report generation, file handling
+- **Data Tools** (`src/tools/data_tools.py`): CSV/Excel処理、統計分析
+- **Search Tools** (`src/tools/search_tools.py`): ウェブ検索、コンテンツ抽出
+- **Document Tools** (`src/tools/document_tools.py`): レポート生成、ファイル処理
 
-### Configuration
+### 設定
 
-- **Settings** (`src/config/settings.py`): Centralized configuration management
-- **Environment Variables**: AWS credentials, API keys, agent parameters
+- **Settings** (`src/config/settings.py`): 集約設定管理
+- **環境変数**: AWSクレデンシャル、APIキー、エージェントパラメータ
 
-## 🔧 Configuration Options
+## 🔧 設定オプション
 
-### Environment Variables
+### 環境変数
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `AWS_ACCESS_KEY_ID` | AWS access key | Required |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key | Required |
-| `AWS_DEFAULT_REGION` | AWS region | us-east-1 |
-| `BEDROCK_MODEL_ID` | Bedrock model to use | claude-3-5-sonnet |
-| `AGENT_MAX_ITERATIONS` | Max agent iterations | 10 |
-| `AGENT_TIMEOUT_SECONDS` | Agent timeout | 300 |
-| `LOG_LEVEL` | Logging level | INFO |
-| `ENABLE_TRACING` | Enable observability | true |
+| 変数 | 説明 | デフォルト |
+| `AWS_ACCESS_KEY_ID` | AWSアクセスキー | 必須 |
+| `AWS_SECRET_ACCESS_KEY` | AWSシークレットキー | 必須 |
+| `AWS_DEFAULT_REGION` | AWSリージョン | us-east-1 |
+| `BEDROCK_MODEL_ID` | 使用するBedrockモデル | claude-3-5-sonnet |
+| `AGENT_MAX_ITERATIONS` | エージェント最大イテレーション数 | 10 |
+| `AGENT_TIMEOUT_SECONDS` | エージェントタイムアウト | 300 |
+| `LOG_LEVEL` | ログレベル | INFO |
+| `ENABLE_TRACING` | 観測可能性を有効化 | true |
 
-### Agent Configuration
+### エージェント設定
 
-Agents can be customized through the settings file:
+エージェントは設定ファイルでカスタマイズできます：
 
 ```python
-# Example: Modify agent behavior
+# 例: エージェント動作を変更
 settings.agent_max_iterations = 15
 settings.agent_timeout_seconds = 600
 ```
 
-## 📊 Monitoring & Observability
+## 📊 監視と観測可能性
 
-### Built-in Monitoring
+### 組み込み監視
 
-- **Agent Dashboard**: Real-time agent status and performance
-- **Task History**: Complete workflow tracking
-- **Results Management**: Organized output storage
+- **エージェントダッシュボード**: リアルタイムエージェントステータスとパフォーマンス
+- **タスク履歴**: 完全なワークフロー追跡
+- **結果管理**: 組織化された出力ストレージ
 
-### Optional: Langfuse Integration
+### オプション: Langfuse統合
 
-Enable detailed tracing by setting:
+詳細トレーシングを有効化するには以下を設定：
 
 ```bash
 LANGFUSE_PUBLIC_KEY=your_key
@@ -199,129 +198,129 @@ LANGFUSE_SECRET_KEY=your_secret
 ENABLE_TRACING=true
 ```
 
-### Optional: Prometheus & Grafana
+### オプション: Prometheus & Grafana
 
-Included in docker-compose.yml for advanced monitoring:
+高度な監視のためdocker-compose.ymlに含まれています：
 
 - Prometheus: http://localhost:9090
 - Grafana: http://localhost:3000 (admin/admin)
 
-## 🧪 Testing
+## 🧪 テスト
 
 ```bash
-# Run unit tests
+# ユニットテストを実行
 pytest tests/
 
-# Run with coverage
+# カバレッジ付きで実行
 pytest --cov=src tests/
 
-# Run specific test file
+# 特定のテストファイルを実行
 pytest tests/test_data_analyst.py
 ```
 
-## 📁 Project Structure
+## 📁 プロジェクト構造
 
 ```
 strands-multi-agent-system/
 ├── src/
-│   ├── agents/           # Agent implementations
-│   ├── tools/            # Custom tools
-│   └── config/           # Configuration
-├── tests/                # Test files
-├── app.py               # Streamlit interface
-├── requirements.txt     # Python dependencies
-├── Dockerfile          # Container configuration
-├── docker-compose.yml  # Multi-service deployment
-└── README.md           # This file
+│   ├── agents/           # エージェント実装
+│   ├── tools/            # カスタムツール
+│   └── config/           # 設定
+├── tests/                # テストファイル
+├── app.py               # Streamlitインターフェース
+├── requirements.txt     # Python依存関係
+├── Dockerfile          # コンテナ設定
+├── docker-compose.yml  # マルチサービスデプロイメント
+└── README.md           # このファイル
 ```
 
-## 🚀 Production Deployment
+## 🚀 本番デプロイメント
 
 ### AWS ECS/Fargate
 
-1. Build and push image to ECR
-2. Create ECS task definition
-3. Deploy to Fargate cluster
-4. Configure load balancer
+1. イメージをビルドしてECRにプッシュ
+2. ECSタスク定義を作成
+3. Fargateクラスターにデプロイ
+4. ロードバランサーを設定
 
-### AWS Lambda (Serverless)
+### AWS Lambda（サーバーレス）
 
-For event-driven execution:
-1. Package application
-2. Deploy as Lambda function
-3. Configure triggers (S3, API Gateway)
+イベント駆動実行の場合：
+1. アプリケーションをパッケージ化
+2. Lambda関数としてデプロイ
+3. トリガーを設定（S3、API Gateway）
 
 ### Kubernetes
 
 ```bash
-# Apply Kubernetes manifests
+# Kubernetesマニフェストを適用
 kubectl apply -f k8s/
 ```
 
-## 🔒 Security
+## 🔒 セキュリティ
 
-- **IAM Roles**: Use IAM roles instead of access keys in production
-- **Secrets Management**: Use AWS Secrets Manager for sensitive data
-- **Network Security**: Deploy in private subnets with proper security groups
-- **Encryption**: Enable encryption at rest and in transit
+- **IAMロール**: 本番環境ではアクセスキーの代わりにIAMロールを使用
+- **シークレット管理**: 機密データにはAWS Secrets Managerを使用
+- **ネットワークセキュリティ**: 適切なセキュリティグループでプライベートサブネットにデプロイ
+- **暗号化**: 保存時と転送時の暗号化を有効化
 
-## 🤝 Contributing
+## 🤝 コントリビューション
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. リポジトリをフォーク
+2. フィーチャーブランチを作成（`git checkout -b feature/amazing-feature`）
+3. 変更をコミット（`git commit -m 'Add amazing feature'`）
+4. ブランチにプッシュ（`git push origin feature/amazing-feature`）
+5. プルリクエストを開く
 
-## 📝 License
+## 📝 ライセンス
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+このプロジェクトはMITライセンスの下でライセンスされています - 詳細はLICENSEファイルを参照してください。
 
-## 🆘 Troubleshooting
+## 🆘 トラブルシューティング
 
-### Common Issues
+### よくある問題
 
-1. **AWS Credentials Error**
+1. **AWSクレデンシャルエラー**
    ```bash
-   # Verify credentials
+   # クレデンシャルを確認
    aws configure list
    aws bedrock list-foundation-models --region us-east-1
    ```
 
-2. **Port Already in Use**
+2. **ポートが既に使用中**
    ```bash
-   # Find and kill process using port 8501
+   # ポート8501を使用しているプロセスを探して終了
    lsof -ti:8501 | xargs kill -9
    ```
 
-3. **Memory Issues**
+3. **メモリ問題**
    ```bash
-   # Increase Docker memory allocation
-   # Or reduce AGENT_MAX_ITERATIONS in .env
+   # Dockerメモリ割り当てを増加
+   # または.envでAGENT_MAX_ITERATIONSを削減
    ```
 
-### Getting Help
+### ヘルプの取得
 
-- Check the logs: `docker-compose logs -f strands-app`
-- Review agent outputs in the Streamlit interface
-- Enable debug logging: `LOG_LEVEL=DEBUG`
+- ログを確認: `docker-compose logs -f strands-app`
+- Streamlitインターフェースでエージェント出力を確認
+- デバッグログを有効化: `LOG_LEVEL=DEBUG`
 
-## 🎯 Roadmap
+## 🎯 ロードマップ
 
-- [ ] Voice interface integration
-- [ ] Additional agent types (Legal, Financial)
-- [ ] Real-time collaboration features
-- [ ] Advanced workflow designer
-- [ ] Cloud-native deployment templates
-- [ ] Mobile application support
+- [ ] 音声インターフェース統合
+- [ ] 追加エージェントタイプ（法務、財務）
+- [ ] リアルタイムコラボレーション機能
+- [ ] 高度ワークフローデザイナー
+- [ ] クラウドネイティブデプロイメントテンプレート
+- [ ] モバイルアプリケーションサポート
 
-## 📞 Support
+## 📞 サポート
 
-For issues and questions:
-- Open an issue on GitHub
-- Check the troubleshooting section
-- Review the documentation
+問題や質問については：
+- GitHubでイシューを開く
+- トラブルシューティングセクションを確認
+- ドキュメントを確認
 
 ---
 
-Built with ❤️ using AWS Strands Agents SDK
+AWS Strands Agents SDKを使用して❤️で構築
