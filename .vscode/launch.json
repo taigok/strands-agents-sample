@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Streamlit App",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/demo_app.py",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "${workspaceFolder}/demo_app.py",
+                "--server.port", "8501",
+                "--server.address", "0.0.0.0"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Run CLI Tests",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/demo_cli.py",
+            "args": ["test-all"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Demo Agent Test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/demo_agents.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

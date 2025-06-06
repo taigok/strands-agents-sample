@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  strands-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: strands-multi-agent
+    ports:
+      - "8501:8501"
+    environment:
+      # AWS Configuration
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      
+      # Bedrock Configuration
+      - BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID:-anthropic.claude-3-5-sonnet-20241022-v2:0}
+      - BEDROCK_ENDPOINT_URL=${BEDROCK_ENDPOINT_URL}
+      
+      # Agent Configuration
+      - AGENT_MAX_ITERATIONS=${AGENT_MAX_ITERATIONS:-10}
+      - AGENT_TIMEOUT_SECONDS=${AGENT_TIMEOUT_SECONDS:-300}
+      
+      # Observability
+      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY}
+      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY}
+      - LANGFUSE_HOST=${LANGFUSE_HOST:-https://cloud.langfuse.com}
+      - ENABLE_TRACING=${ENABLE_TRACING:-true}
+      
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_FORMAT=${LOG_FORMAT:-json}
+      
+      # Application
+      - APP_NAME=${APP_NAME:-Strands Multi-Agent System}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      
+      # Storage
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - LOCAL_STORAGE_PATH=/app/data
+      
+      # API Keys
+      - SERPAPI_KEY=${SERPAPI_KEY}
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
+      
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+      - /tmp:/tmp/strands-storage
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - strands-network
+
+  # Optional: Add a Redis cache for agent state management
+  redis:
+    image: redis:7-alpine
+    container_name: strands-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - strands-network
+    command: redis-server --appendonly yes
+
+  # Optional: Add monitoring with Grafana and Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: strands-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    restart: unless-stopped
+    networks:
+      - strands-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: strands-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    restart: unless-stopped
+    networks:
+      - strands-network
+    depends_on:
+      - prometheus
+
+volumes:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  strands-network:
+    driver: bridge

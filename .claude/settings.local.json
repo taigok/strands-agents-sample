@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(chmod:*)",
+      "Bash(ls:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(kill:*)",
+      "Bash(docker compose:*)",
+      "Bash(streamlit run:*)",
+      "Bash(true)",
+      "Bash(./start_app.sh:*)",
+      "Bash(ss:*)"
+    ],
+    "deny": []
+  }
+}
